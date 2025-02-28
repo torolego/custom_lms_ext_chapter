@@ -1,0 +1,14 @@
+<odoo>
+    <template id="slide_chapter_page" name="Slide Chapter Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <h1><t t-esc="chapter.name"/></h1>
+                <t t-foreach="chapter.lesson_ids" t-as="lesson">
+                    <div>
+                        <a t-att-href="'/slides/lesson/%s' % lesson.id"> <t t-esc="lesson.name"/></a>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

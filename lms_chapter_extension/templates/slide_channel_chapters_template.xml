@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="slide_channel_chapters_template" inherit_id="website_slides.course_main" name="Course Chapters">
+        <xpath expr="//div[@id='home']" position="before">
+            <div class="o_wslides_course_chapters">
+                <h3>Course Chapters</h3>
+                <t t-if="channel.chapter_ids">
+                    <ul>
+                        <!-- Ciclo sui capitoli -->
+                        <t t-foreach="channel.chapter_ids" t-as="chapter">
+                            <li>
+                                <strong t-esc="chapter.name"/> (Lessons: <t t-esc="len(chapter.lesson_ids)"/>)
+                                <ul>
+                                    <!-- Ciclo sulle lezioni del capitolo corrente -->
+                                    <t t-foreach="chapter.lesson_ids" t-as="lesson">
+                                        <li>
+                                            <a t-attf-href="/slides/lesson/#{lesson.id}">
+                                                <t t-esc="lesson.name"/>
+                                            </a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </li>
+                        </t>
+                    </ul>
+                </t>
+                <t t-else="">
+                    <p>No chapters available.</p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
