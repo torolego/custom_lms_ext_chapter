@@ -5,24 +5,26 @@
             <div class="o_wslides_course_chapters">
                 <h3>Course Chapters</h3>
                 <t t-if="channel.chapter_ids">
-                    <ul>
-                        <!-- Ciclo sui capitoli -->
+                    <div class="row">
                         <t t-foreach="channel.chapter_ids" t-as="chapter">
-                            <li>
-                                <strong t-esc="chapter.name"/> (Lessons: <t t-esc="len(chapter.lesson_ids)"/>)
-                                <ul>
-                                    <!-- Ciclo sulle lezioni del capitolo corrente -->
-                                    <t t-foreach="chapter.lesson_ids" t-as="lesson">
-                                        <li>
-                                            <a t-attf-href="/slides/lesson/#{lesson.id}">
-                                                <t t-esc="lesson.name"/>
+                            <div class="col-md-4">
+                                <div class="card shadow-sm mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a t-att-href="'/course/chapter/%s' % chapter.id">
+                                                <t t-esc="chapter.name"/>
                                             </a>
-                                        </li>
-                                    </t>
-                                </ul>
-                            </li>
+                                        </h5>
+                                        <p class="card-text" t-esc="chapter._description"/>
+                                        <p><strong>Lessons:</strong> <t t-esc="len(chapter.lesson_ids)"/></p>
+                                        <a t-att-href="'/course/chapter/%s' % chapter.id" class="btn btn-primary mt-2">
+                                            View Chapter
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </t>
-                    </ul>
+                    </div>
                 </t>
                 <t t-else="">
                     <p>No chapters available.</p>
@@ -31,3 +33,6 @@
         </xpath>
     </template>
 </odoo>
+
+
+
