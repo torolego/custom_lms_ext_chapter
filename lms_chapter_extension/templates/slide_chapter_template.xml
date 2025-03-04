@@ -1,23 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="slide_chapter_template" name="Slide Chapter Page">
-        <t t-call="website.layout">
-            <div class="container">
-                <h1><t t-esc="chapter.name"/></h1>
-                <p><t t-esc="chapter._description"/></p>
+    <template id="slide_chapter_template" name="Slide Chapter">
+        <t t-call="website.layout"> 
+        <t t-set="title" t-value="chapter.name"/>      
+            <div class="container mt-5">
+                <h2 class="text-center"><t t-esc="chapter.name"/></h2>
+                <h5 class="text-muted">Corso: <t t-esc="chapter.course_id.name"/></h5>
 
-                <h3>Lessons:</h3>
-                <ul>
+                <div class="row mt-4">
                     <t t-foreach="chapter.lesson_ids" t-as="lesson">
-                        <li>
-                            <a t-att-href="'/slides/lesson/%s' % lesson.id">
-                                <t t-esc="lesson.name"/>
-                            </a>
-                        </li>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm mb-4">
+                               <t t-if="lesson.image_1920">
+                                    <t t-set="img_url" t-value="'/web/image/%s/%s/image_1920' % (lesson._name, lesson.id)"/>
+                                        <img t-att-src="img_url" class="card-img-top" alt="Lesson Image"/>                                 
+                                </t>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-esc="lesson.name"/>
+                                    </h5>
+                                    <p class="card-text">
+                                        <t t-esc="lesson.description"/>
+                                    </p>
+                                    <span class="badge badge-success" t-if="lesson.completed">Completata</span>
+                                    <span class="badge badge-warning" t-if="not lesson.completed">In corso</span>
+                                </div>
+                            </div>
+                        </div>
                     </t>
-                </ul>
+                </div>
+
+                <a href="/course" class="btn btn-secondary mt-3">Torna ai Corsi</a>
             </div>
         </t>
     </template>
 </odoo>
-
 
