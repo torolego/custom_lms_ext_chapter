@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+    <template id="slide_chapter_template" name="Slide Chapter">
+        <t t-call="website.layout"> 
+            <t t-set="title" t-value="chapter.name"/>      
+            <div class="container mt-5">
+                <!-- Intestazione del capitolo in una tabella a due colonne -->
+                <div class="row mb-4">
+                    <!-- Prima colonna: Immagine del capitolo -->
+                    <div class="col-md-4">
+                        <t t-if="chapter.image">
+                            <t t-set="chapter_img_url" t-value="'/web/image/%s/%s/image' % (chapter._name, chapter.id)"/>
+                            <img t-att-src="chapter_img_url" class="img-fluid rounded" alt="Chapter Image"/>
+                        </t>
+                    </div>
+
+                    <!-- Seconda colonna: Breadcrumb, nome, descrizione e numero lezioni -->
+                    <div class="col-md-8">
+                        <!-- Breadcrumb (Corso > Capitolo) -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/course">Corsi</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a t-att-href="'/course/%s' % chapter.course_id.id">
+                                        <t t-esc="chapter.course_id.name"/>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <t t-esc="chapter.name"/>
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <!-- Nome del capitolo -->
+                        <h2><t t-esc="chapter.name"/></h2>
+
+                        <!-- Descrizione del capitolo -->
+                        <t t-if="chapter._description">
+                            <p class="text-muted"><t t-esc="chapter._description"/></p>
+                        </t>
+
+                        <!-- Numero delle lezioni -->
+                        <p class="text-muted">Numero di lezioni: <t t-esc="len(chapter.lesson_ids)"/></p>
+                    </div>
+                </div>
+
+                <!-- Linea orizzontale e titolo "Lezioni" -->
+                <hr class="my-4"/>
+                <h3 class="mb-4">Lezioni</h3>
+
+                <!-- Lista delle lezioni -->
+                <div class="row mt-4">
+                    <t t-foreach="chapter.lesson_ids" t-as="lesson">
+                        <div class="col-md-4">
+                            <div class="card shadow-sm mb-4">
+                                <t t-if="lesson.image_1920">
+                                    <t t-set="img_url" t-value="'/web/image/%s/%s/image_1920' % (lesson._name, lesson.id)"/>
+                                    <img t-att-src="img_url" class="card-img-top" alt="Lesson Image"/>                                 
+                                </t>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-esc="lesson.name"/>
+                                    </h5>
+                                    <p class="card-text">
+                                        <t t-esc="lesson.description"/>
+                                    </p>
+                                    <span class="badge badge-success" t-if="lesson.completed">Completata</span>
+                                    <span class="badge badge-warning" t-if="not lesson.completed">In corso</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- Bottone "Torna ai Corsi" -->
+                <a href="/course" class="btn btn-secondary mt-3">Torna ai Corsi</a>
+            </div>
+        </t>
+    </template>
+</odoo>

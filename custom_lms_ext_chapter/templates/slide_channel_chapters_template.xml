@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="slide_channel_chapters_template" inherit_id="website_slides.course_main" name="Course Chapters">
+        <xpath expr="//div[@id='home']" position="before">
+            <div class="o_wslides_course_chapters">
+                <h3>Course Chapters</h3>
+                <t t-if="channel.chapter_ids">
+                    <div class="row">
+                        <t t-foreach="channel.chapter_ids" t-as="chapter">
+                            <div class="col-md-4">
+                                <div class="card shadow-sm mb-4">
+                                    <t t-if="chapter.image">
+                                        <img t-att-src="'/web/image/slide.chapter/%s/image' % chapter.id" class="card-img-top" alt="Chapter Image"/>
+                                    </t>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a t-att-href="'/course/chapter/%s' % chapter.id">
+                                                <t t-esc="chapter.name"/>
+                                            </a>
+                                        </h5>
+                                        <p class="card-text" t-esc="chapter._description"/>
+                                        <p><strong>Lessons:</strong> <t t-esc="len(chapter.lesson_ids)"/></p>
+                                        <a t-att-href="'/course/chapter/%s' % chapter.id" class="btn btn-primary mt-2">
+                                            View Chapter
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+                <t t-else="">
+                    <p>No chapters available.</p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
