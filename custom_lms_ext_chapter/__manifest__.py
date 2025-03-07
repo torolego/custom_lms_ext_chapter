@@ -1,6 +1,6 @@
 {
     'name': 'LMS Chapter Extension',
-    'version': '16.0.1.0.0',
+    'version': '17.0.1.0.0',
     'summary': 'Extends Odoo LMS (website_slides) to add chapter pages',
     'author': 'QuickStart2',
     'category': 'Website',
